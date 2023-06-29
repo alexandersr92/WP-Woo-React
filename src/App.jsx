@@ -1,12 +1,14 @@
-
-import './App.css'
+import { Header } from './components/template-parts/NavMenu/Header'
 
 function App() {
  
 
   return (
     <>
-    <h1>Hello</h1>
+      <Header/>
+        <h1 className="text-3xl font-bold underline bg-red-500">
+      Hello world!
+    </h1>
     </>
   )
 }

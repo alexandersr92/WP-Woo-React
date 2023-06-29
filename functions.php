@@ -15,58 +15,10 @@ function blankslate_setup()
   }
   register_nav_menus(array('main-menu' => esc_html__('Main Menu', 'blankslate')));
 }
-add_action('admin_notices', 'blankslate_notice');
-function blankslate_notice()
-{
-  $user_id = get_current_user_id();
-  $admin_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-  $param = (count($_GET)) ? '&' : '?';
-  if (!get_user_meta($user_id, 'blankslate_notice_dismissed_8') && current_user_can('manage_options'))
-    echo '<div class="notice notice-info"><p><a href="' . esc_url($admin_url), esc_html($param) . 'dismiss" class="alignright" style="text-decoration:none"><big>' . esc_html__('Ⓧ', 'blankslate') . '</big></a>' . wp_kses_post(__('<big><strong>📝 Thank you for using BlankSlate!</strong></big>', 'blankslate')) . '<br /><br /><a href="https://wordpress.org/support/theme/blankslate/reviews/#new-post" class="button-primary" target="_blank">' . esc_html__('Review', 'blankslate') . '</a> <a href="https://github.com/tidythemes/blankslate/issues" class="button-primary" target="_blank">' . esc_html__('Feature Requests & Support', 'blankslate') . '</a> <a href="https://calmestghost.com/donate" class="button-primary" target="_blank">' . esc_html__('Donate', 'blankslate') . '</a></p></div>';
-}
-add_action('admin_init', 'blankslate_notice_dismissed');
-function blankslate_notice_dismissed()
-{
-  $user_id = get_current_user_id();
-  if (isset($_GET['dismiss']))
-    add_user_meta($user_id, 'blankslate_notice_dismissed_8', 'true', true);
-}
-add_action('wp_enqueue_scripts', 'blankslate_enqueue');
-function blankslate_enqueue()
-{
-  wp_enqueue_style('blankslate-style', get_stylesheet_uri());
-  wp_enqueue_script('jquery');
-}
-add_action('wp_footer', 'blankslate_footer');
-function blankslate_footer()
-{
-?>
-  <script>
-    jQuery(document).ready(function($) {
-      var deviceAgent = navigator.userAgent.toLowerCase();
-      if (deviceAgent.match(/(iphone|ipod|ipad)/)) {
-        $("html").addClass("ios");
-        $("html").addClass("mobile");
-      }
-      if (deviceAgent.match(/(Android)/)) {
-        $("html").addClass("android");
-        $("html").addClass("mobile");
-      }
-      if (navigator.userAgent.search("MSIE") >= 0) {
-        $("html").addClass("ie");
-      } else if (navigator.userAgent.search("Chrome") >= 0) {
-        $("html").addClass("chrome");
-      } else if (navigator.userAgent.search("Firefox") >= 0) {
-        $("html").addClass("firefox");
-      } else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
-        $("html").addClass("safari");
-      } else if (navigator.userAgent.search("Opera") >= 0) {
-        $("html").addClass("opera");
-      }
-    });
-  </script>
-<?php
-}
+
+
+
+
 add_filter('document_title_separator', 'blankslate_document_title_separator');
 function blankslate_document_title_separator($sep)
 {
@@ -182,8 +134,21 @@ function blankslate_comment_count($count)
   }
 }
 // borrar lo que no sirve
-//wp-enqueue-scripts
 
+
+
+//define dir and path constant 
+define('THEME_DIR', get_template_directory());
+define('THEME_URI', get_template_directory_uri());
+
+
+
+
+
+//wp-enqueue-scripts
+/* Require plugins on activation */
+
+require_once('plugin-activation.php');
 function add_module_attribute($tag, $handle)
 {
   if (strpos($handle, 'script_dev') !== false) {
