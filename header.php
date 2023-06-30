@@ -9,7 +9,5 @@
 
 <body <?php body_class(); ?>>
   <?php wp_body_open(); ?>
-  <div id="wrapper" class="hfeed">
 
-    <div id="container">
-      <main id="content-wp-woo" role="main">
+  <main id="content-wp-woo" role="main">

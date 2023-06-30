@@ -14,8 +14,8 @@ function blankslate_setup()
     $content_width = 1920;
   }
   register_nav_menus(array('main-menu' => esc_html__('Main Menu', 'blankslate')));
+  register_nav_menus(array('footer-menu' => esc_html__('Footer Menu', 'blankslate')));
 }
-
 
 
 
@@ -147,6 +147,7 @@ define('THEME_URI', get_template_directory_uri());
 
 //wp-enqueue-scripts
 /* Require plugins on activation */
+require_once(THEME_DIR . '/inc/custom-api.php');
 
 require_once('plugin-activation.php');
 function add_module_attribute($tag, $handle)
