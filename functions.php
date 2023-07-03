@@ -198,3 +198,11 @@ function my_scripts_method()
 
 
 add_action('wp_enqueue_scripts', 'my_scripts_method');
+
+
+// Custom plugin used with ACF to provide modular layouts for pages and/or posts.
+include_once(THEME_DIR . '/plugins/modules/class-modules.php');
+
+$modules = ModuleACF\Modules::get_instance();
+$modules->add_module_section('page_modules', 'page');
+$modules->load_modules(THEME_DIR . '/modules/');
