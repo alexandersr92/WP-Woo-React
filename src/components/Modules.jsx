@@ -10,10 +10,10 @@ export const Modules = (modules) => {
 
       return modules.map((module, index) => {
        return (
-          <div className="Aqui" key={index}>
+          <section className={`section_${module.acf_fc_layout}`} key={index}>
             {module.acf_fc_layout === 'hero' && <Hero {...module} />}
             {module.acf_fc_layout === 'imageModule' && <ImageModule {...module} />}
-          </div>
+          </section>
           
        )
       })

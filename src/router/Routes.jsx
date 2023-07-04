@@ -15,7 +15,7 @@ import Register from '../components/Register'; */
 export const  AppRouter= () => {
   return (
     <Routes>
-      <Route path="/" element={<Page />} errorElement={<NotFound/>}/>
+      <Route path="/" element={<Page isHome={true}/>} errorElement={<NotFound/>}/>
       <Route path="/:slug" element={<Page />} errorElement={<NotFound/>}/>  
     </Routes>  
   )
