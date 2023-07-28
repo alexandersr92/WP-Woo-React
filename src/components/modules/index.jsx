@@ -1,4 +1,4 @@
 import Hero from './Hero';
 import ImageModule from './ImageModule';
-
-export { Hero, ImageModule };
+import { Testimonios } from './Testimonios';
+export { Hero, ImageModule, Testimonios };

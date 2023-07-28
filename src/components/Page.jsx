@@ -1,29 +1,40 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {Modules} from './Modules'
-import API from '../api'
+import {getPage, getSetting} from '../api'
+import {Helmet} from "react-helmet";
 
-export const Page = (isHome) => {
+export const Page = ({isHome}) => {
   const {slug} = useParams();
   const [page, setPage] = useState({});
+  const [setting, setSetting] = useState({});
 
-  const getPage = async () => {
-    let slug = isHome ? 'home' : slug;
-    const response = await API(slug, 'pages');
+  const getPageFromAPI = async () => {
+    const params = {
+      slug: isHome ? 'home' : slug
+    }
+    const response = await getPage(params);
+
     setPage(response);
+    const respSetting = await getSetting()
+    setSetting(respSetting)
+ 
   };
 
-console.log("isHome",isHome)
-
   useEffect(() => {
-    getPage();
+    getPageFromAPI();
 
   }, [slug]);
 
   return (
     <>
-      <h1>{ page?.title?.rendered}</h1>
-      <Modules modules={page?.acf?.modules}/>
+      <Helmet>
+        <title>{ `${page?.title?.rendered} | ${setting?.siteTitle}`}</title>
+      </Helmet>
+      <div className="max-w-screen-xl mx-auto">
+        <Modules modules={page?.acf?.modules}/>
+      </div>
+
     </>
   )
 }

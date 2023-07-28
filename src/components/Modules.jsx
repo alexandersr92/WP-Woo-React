@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import {Hero, ImageModule} from './modules/index'
+import {Hero, ImageModule, Testimonios} from './modules/index'
 
 
 export const Modules = (modules) => {
@@ -13,6 +13,7 @@ export const Modules = (modules) => {
           <section className={`section_${module.acf_fc_layout}`} key={index}>
             {module.acf_fc_layout === 'hero' && <Hero {...module} />}
             {module.acf_fc_layout === 'imageModule' && <ImageModule {...module} />}
+            {module.acf_fc_layout === 'testimonios' && <Testimonios {...module} />}
           </section>
           
        )

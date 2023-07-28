@@ -1,7 +1,7 @@
 
 
  const ImageModule = (module) => {
-  console.log(module)
+
   return (
     <>
         <div>ImageModule</div>

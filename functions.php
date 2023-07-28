@@ -148,6 +148,8 @@ define('THEME_URI', get_template_directory_uri());
 //wp-enqueue-scripts
 /* Require plugins on activation */
 require_once(THEME_DIR . '/inc/custom-api.php');
+require_once(THEME_DIR . '/inc/site-options.php');
+require_once(THEME_DIR . '/cpt/books.php');
 
 require_once('plugin-activation.php');
 function add_module_attribute($tag, $handle)
@@ -206,3 +208,16 @@ include_once(THEME_DIR . '/plugins/modules/class-modules.php');
 $modules = ModuleACF\Modules::get_instance();
 $modules->add_module_section('page_modules', 'page');
 $modules->load_modules(THEME_DIR . '/modules/');
+
+
+// Remove gutenberg from the page editor
+add_filter('use_block_editor_for_post', 'hide_editor', 10, 2);
+function hide_editor($use_block_editor, $post_type)
+{
+  remove_post_type_support('page', 'editor'); // disable standard editor
+  if ($post_type->post_type == 'post') {
+    return true; // and disable gutenberg
+  } else {
+    return false;
+  }
+}
